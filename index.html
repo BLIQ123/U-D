@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>U&D — University OS</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Inter;
+}
+
+body{
+  background:#050505;
+  color:white;
+  overflow-y:auto;
+  overflow-x:hidden;
+}
+
+/* ================= INTRO ================= */
+
+.intro{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:radial-gradient(circle at center, #0a0a0a 0%, #000 80%);
+  z-index:100;
+  animation:introExit 4.5s cubic-bezier(.77,0,.175,1) forwards;
+}
+
+.light{
+  position:absolute;
+  width:700px;
+  height:700px;
+  background:radial-gradient(circle, rgba(255,255,255,.14), transparent 65%);
+  filter:blur(80px);
+  animation:float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+  0%,100%{transform:translate(-25px,-20px)}
+  50%{transform:translate(35px,25px)}
+}
+
+.logo{
+  font-size:92px;
+  letter-spacing:26px;
+  font-weight:500;
+  animation:logoIn 3s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.logo span{color:rgba(255,255,255,.35);}
+
+@keyframes logoIn{
+  0%{opacity:0;transform:scale(2.2);filter:blur(35px);}
+  45%{opacity:1;filter:blur(0);}
+  100%{opacity:1;transform:scale(1);}
+}
+
+@keyframes introExit{
+  0%{opacity:1}
+  100%{opacity:0;visibility:hidden}
+}
+
+/* ================= MAIN ================= */
+
+.main{
+  padding:60px;
+  opacity:0;
+  animation:mainIn 1.2s ease 4.6s forwards;
+}
+
+@keyframes mainIn{to{opacity:1;}}
+
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding-bottom:30px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.brand{letter-spacing:6px;}
+.lang{cursor:pointer;color:rgba(255,255,255,.6);}
+
+/* TEXT */
+[data-ru]{
+  transition:opacity .3s ease, transform .3s ease;
+}
+
+/* HERO */
+.hero h1{
+  font-size:72px;
+  line-height:1.05;
+  letter-spacing:-2px;
+  max-width:1000px;
+}
+
+.hero p{
+  margin-top:20px;
+  max-width:900px;
+  color:rgba(255,255,255,.6);
+  line-height:1.6;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  margin-top:60px;
+}
+
+/* CARD (ACCORDION) */
+.card{
+  padding:22px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  background:rgba(255,255,255,.03);
+  cursor:pointer;
+  transition:.3s ease;
+  overflow:hidden;
+}
+
+.card:hover{
+  border-color:rgba(255,255,255,.2);
+}
+
+/* content inside card */
+.card-content{
+  max-height:0;
+  opacity:0;
+  overflow:hidden;
+  transform:translateY(-6px);
+  transition:all .45s cubic-bezier(.2,.8,.2,1);
+  margin-top:0;
+  color:rgba(255,255,255,.65);
+  line-height:1.6;
+}
+
+/* open state */
+.card.open .card-content{
+  max-height:200px;
+  opacity:1;
+  transform:translateY(0);
+  margin-top:12px;
+}
+
+/* SECTIONS */
+.section{
+  margin-top:80px;
+}
+
+.section h2{
+  font-size:28px;
+  margin-bottom:18px;
+}
+
+.text{
+  color:rgba(255,255,255,.6);
+  line-height:1.7;
+  max-width:900px;
+}
+
+/* NEWS */
+.news{
+  display:grid;
+  gap:12px;
+}
+
+.news-item{
+  padding:16px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;
+  background:rgba(255,255,255,.02);
+  color:rgba(255,255,255,.6);
+}
+
+/* CURSOR */
+.cursor{
+  position:fixed;
+  width:260px;
+  height:260px;
+  background:radial-gradient(circle, rgba(255,255,255,.08), transparent 60%);
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  mix-blend-mode:screen;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div class="intro">
+  <div class="light"></div>
+  <div class="logo">U<span>&</span>D</div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<nav>
+  <div class="brand">U&D</div>
+  <div class="lang" onclick="toggleLang()">RU / EN</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1 data-ru="Университет дизайна как интеллектуальная система"
+      data-en="Design University as an intelligent system">
+    Университет дизайна как интеллектуальная система
+  </h1>
+
+  <p data-ru="U&D — образовательная среда, где дизайн, UX/UI и продуктовые системы изучаются через практику и реальные проекты."
+     data-en="U&D is an educational environment where design, UX/UI and product systems are studied through real projects and practice.">
+    U&D — образовательная среда.
+  </p>
+</div>
+
+<!-- GRID -->
+<div class="grid">
+
+  <div class="card" onclick="toggleCard(this,'graphic')"
+       data-ru="Графический дизайн"
+       data-en="Graphic Design">
+    Графический дизайн
+    <div class="card-content"></div>
+  </div>
+
+  <div class="card" onclick="toggleCard(this,'ux')"
+       data-ru="UX/UI дизайн"
+       data-en="UX/UI Design">
+    UX/UI дизайн
+    <div class="card-content"></div>
+  </div>
+
+  <div class="card" onclick="toggleCard(this,'industrial')"
+       data-ru="Промышленный дизайн"
+       data-en="Industrial Design">
+    Промышленный дизайн
+    <div class="card-content"></div>
+  </div>
+
+</div>
+
+<!-- SUPPORT -->
+<div class="section">
+
+<h2 data-ru="Поддержка" data-en="Support">Поддержка</h2>
+
+<p class="text"
+data-ru="Мы помогаем студентам и абитуриентам на всех этапах обучения и поступления."
+data-en="We support students and applicants throughout admission and studies.">
+text
+</p>
+
+<p class="text"
+data-ru="Телефон: +7 (495) 120-88-40"
+data-en="Phone: +7 (495) 120-88-40">
+phone
+</p>
+
+<p class="text"
+data-ru="Москва, м. Проспект Мира, Протопоповский переулок, 9с1"
+data-en="Moscow, Prospekt Mira metro station, Protopopovsky Lane 9s1">
+address
+</p>
+
+</div>
+
+<!-- NEWS -->
+<div class="section">
+
+<h2 data-ru="Новости" data-en="News">Новости</h2>
+
+<div class="news">
+
+<div class="news-item"
+data-ru="Запущены новые образовательные программы."
+data-en="New academic programs launched.">
+news
+</div>
+
+<div class="news-item"
+data-ru="Студенты работают с индустриальными партнёрами."
+data-en="Students collaborate with industry partners.">
+news
+</div>
+
+<div class="news-item"
+data-ru="Открыты лаборатории UX и AI дизайна."
+data-en="UX and AI design labs opened.">
+news
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CURSOR -->
+<div class="cursor"></div>
+
+<script>
+
+const cursor=document.querySelector(".cursor");
+
+document.addEventListener("mousemove",(e)=>{
+  cursor.style.left=e.clientX+"px";
+  cursor.style.top=e.clientY+"px";
+});
+
+/* LANGUAGE */
+let lang="ru";
+let switching=false;
+
+function toggleLang(){
+  if(switching)return;
+  switching=true;
+
+  lang=(lang==="ru")?"en":"ru";
+
+  document.querySelectorAll("[data-ru]").forEach(el=>{
+    el.style.opacity=0;
+  });
+
+  setTimeout(()=>{
+    document.querySelectorAll("[data-ru]").forEach(el=>{
+      el.innerText=el.getAttribute("data-"+lang);
+    });
+
+    requestAnimationFrame(()=>{
+      document.querySelectorAll("[data-ru]").forEach(el=>{
+        el.style.opacity=1;
+      });
+      switching=false;
+    });
+
+  },250);
+}
+
+/* ACCORDION */
+const data={
+  graphic:{
+    ru:{
+      b:"Бакалавриат: брендинг, типографика, визуальные системы.",
+      m:"Магистратура: арт-дирекшн и дизайн-стратегия.",
+      t:"Срок: 4 года + 2 года"
+    },
+    en:{
+      b:"Bachelor: branding, typography, visual systems.",
+      m:"Master: art direction and design strategy.",
+      t:"Duration: 4 years + 2 years"
+    }
+  },
+  ux:{
+    ru:{
+      b:"Бакалавриат: интерфейсы и UX исследования.",
+      m:"Магистратура: продуктовый дизайн и системы.",
+      t:"Срок: 4 года + 2 года"
+    },
+    en:{
+      b:"Bachelor: interfaces and UX research.",
+      m:"Master: product systems and design.",
+      t:"Duration: 4 years + 2 years"
+    }
+  },
+  industrial:{
+    ru:{
+      b:"Бакалавриат: предметный дизайн и формы.",
+      m:"Магистратура: индустриальные системы.",
+      t:"Срок: 4 года + 2 года"
+    },
+    en:{
+      b:"Bachelor: product form and design.",
+      m:"Master: industrial systems design.",
+      t:"Duration: 4 years + 2 years"
+    }
+  }
+};
+
+function toggleCard(el,type){
+
+  const isOpen=el.classList.contains("open");
+
+  document.querySelectorAll(".card").forEach(c=>c.classList.remove("open"));
+
+  if(isOpen) return;
+
+  const d=data[type][lang];
+  const content=el.querySelector(".card-content");
+
+  content.innerHTML=`
+    <div>${d.b}</div>
+    <div style="margin-top:6px">${d.m}</div>
+    <div style="margin-top:6px;color:rgba(255,255,255,.4)">${d.t}</div>
+  `;
+
+  el.classList.add("open");
+}
+
+</script>
+
+</body>
+</html>
