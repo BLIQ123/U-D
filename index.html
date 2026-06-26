@@ -32,8 +32,9 @@ body{
   align-items:center;
   justify-content:center;
   background:radial-gradient(circle at center, #0a0a0a 0%, #000 80%);
-  z-index:100;
-  animation:introExit 4.5s cubic-bezier(.77,0,.175,1) forwards;
+  z-index:1000;
+  animation:introExit 3.8s cubic-bezier(.77,0,.175,1) forwards;
+  pointer-events:none; /* 🔥 FIX: не блокирует клики */
 }
 
 .light{
@@ -67,18 +68,20 @@ body{
 
 @keyframes introExit{
   0%{opacity:1}
-  100%{opacity:0;visibility:hidden}
+  80%{opacity:1}
+  100%{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+  }
 }
 
 /* ================= MAIN ================= */
 
 .main{
   padding:60px;
-  opacity:0;
-  animation:mainIn 1.2s ease 4.6s forwards;
+  opacity:1; /* 🔥 FIX: сразу доступно */
 }
-
-@keyframes mainIn{to{opacity:1;}}
 
 nav{
   display:flex;
@@ -93,7 +96,7 @@ nav{
 
 /* TEXT */
 [data-ru]{
-  transition:opacity .3s ease, transform .3s ease;
+  transition:opacity .25s ease;
 }
 
 /* HERO */
@@ -119,39 +122,32 @@ nav{
   margin-top:60px;
 }
 
-/* CARD (ACCORDION) */
+/* CARD */
 .card{
   padding:22px;
   border:1px solid rgba(255,255,255,.08);
   border-radius:16px;
   background:rgba(255,255,255,.03);
   cursor:pointer;
-  transition:.3s ease;
+  transition:.25s ease;
   overflow:hidden;
+  position:relative;
+  z-index:1; /* 🔥 FIX */
 }
 
 .card:hover{
   border-color:rgba(255,255,255,.2);
 }
 
-/* content inside card */
 .card-content{
-  max-height:0;
+  height:0;
   opacity:0;
   overflow:hidden;
   transform:translateY(-6px);
-  transition:all .45s cubic-bezier(.2,.8,.2,1);
+  transition:all .35s ease;
   margin-top:0;
   color:rgba(255,255,255,.65);
   line-height:1.6;
-}
-
-/* open state */
-.card.open .card-content{
-  max-height:200px;
-  opacity:1;
-  transform:translateY(0);
-  margin-top:12px;
 }
 
 /* SECTIONS */
@@ -193,6 +189,7 @@ nav{
   pointer-events:none;
   transform:translate(-50%,-50%);
   mix-blend-mode:screen;
+  z-index:2;
 }
 
 </style>
@@ -214,94 +211,58 @@ nav{
   <div class="lang" onclick="toggleLang()">RU / EN</div>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <h1 data-ru="Университет дизайна как интеллектуальная система"
-      data-en="Design University as an intelligent system">
-    Университет дизайна как интеллектуальная система
-  </h1>
+      data-en="Design University as an intelligent system"></h1>
 
   <p data-ru="U&D — образовательная среда, где дизайн, UX/UI и продуктовые системы изучаются через практику и реальные проекты."
-     data-en="U&D is an educational environment where design, UX/UI and product systems are studied through real projects and practice.">
-    U&D — образовательная среда.
-  </p>
+     data-en="U&D is an educational environment where design, UX/UI and product systems are studied through real projects and practice."></p>
 </div>
 
-<!-- GRID -->
 <div class="grid">
 
-  <div class="card" onclick="toggleCard(this,'graphic')"
-       data-ru="Графический дизайн"
-       data-en="Graphic Design">
+  <div class="card" onclick="toggleCard(this,'graphic')" data-ru="Графический дизайн" data-en="Graphic Design">
     Графический дизайн
     <div class="card-content"></div>
   </div>
 
-  <div class="card" onclick="toggleCard(this,'ux')"
-       data-ru="UX/UI дизайн"
-       data-en="UX/UI Design">
+  <div class="card" onclick="toggleCard(this,'ux')" data-ru="UX/UI дизайн" data-en="UX/UI Design">
     UX/UI дизайн
     <div class="card-content"></div>
   </div>
 
-  <div class="card" onclick="toggleCard(this,'industrial')"
-       data-ru="Промышленный дизайн"
-       data-en="Industrial Design">
+  <div class="card" onclick="toggleCard(this,'industrial')" data-ru="Промышленный дизайн" data-en="Industrial Design">
     Промышленный дизайн
     <div class="card-content"></div>
   </div>
 
 </div>
 
-<!-- SUPPORT -->
 <div class="section">
 
-<h2 data-ru="Поддержка" data-en="Support">Поддержка</h2>
+<h2 data-ru="Поддержка" data-en="Support"></h2>
 
-<p class="text"
-data-ru="Мы помогаем студентам и абитуриентам на всех этапах обучения и поступления."
-data-en="We support students and applicants throughout admission and studies.">
-text
-</p>
+<p class="text" data-ru="Телефон: +7 (495) 120-88-40" data-en="Phone: +7 (495) 120-88-40"></p>
 
-<p class="text"
-data-ru="Телефон: +7 (495) 120-88-40"
-data-en="Phone: +7 (495) 120-88-40">
-phone
-</p>
+<p class="text" data-ru="Email: support@ud-university.ru" data-en="Email: support@ud-university.ru"></p>
 
-<p class="text"
-data-ru="Москва, м. Проспект Мира, Протопоповский переулок, 9с1"
-data-en="Moscow, Prospekt Mira metro station, Protopopovsky Lane 9s1">
-address
-</p>
+<p class="text" data-ru="Москва, м. Проспект Мира, Протопоповский переулок, 9с1"
+              data-en="Moscow, Prospekt Mira metro station, Protopopovsky Lane 9s1"></p>
 
 </div>
 
-<!-- NEWS -->
 <div class="section">
 
-<h2 data-ru="Новости" data-en="News">Новости</h2>
+<h2 data-ru="Новости" data-en="News"></h2>
 
 <div class="news">
 
-<div class="news-item"
-data-ru="Запущены новые образовательные программы."
-data-en="New academic programs launched.">
-news
-</div>
-
-<div class="news-item"
-data-ru="Студенты работают с индустриальными партнёрами."
-data-en="Students collaborate with industry partners.">
-news
-</div>
-
-<div class="news-item"
-data-ru="Открыты лаборатории UX и AI дизайна."
-data-en="UX and AI design labs opened.">
-news
-</div>
+<div class="news-item" data-ru="AI меняет дизайн-индустрию." data-en="AI is changing the design industry."></div>
+<div class="news-item" data-ru="UX становится ключевой профессией." data-en="UX is becoming a key profession."></div>
+<div class="news-item" data-ru="Университеты внедряют AI обучение." data-en="Universities adopt AI education."></div>
+<div class="news-item" data-ru="Figma расширяет инструменты." data-en="Figma expands design tools."></div>
+<div class="news-item" data-ru="Бизнес переходит на дизайн-мышление." data-en="Business adopts design thinking."></div>
+<div class="news-item" data-ru="Креативная индустрия растёт." data-en="Creative industry is growing."></div>
 
 </div>
 
@@ -309,7 +270,6 @@ news
 
 </div>
 
-<!-- CURSOR -->
 <div class="cursor"></div>
 
 <script>
@@ -321,12 +281,22 @@ document.addEventListener("mousemove",(e)=>{
   cursor.style.top=e.clientY+"px";
 });
 
-/* LANGUAGE */
+/* ================= LANGUAGE ================= */
+
 let lang="ru";
 let switching=false;
 
+function renderLanguage(){
+  document.querySelectorAll("[data-ru]").forEach(el=>{
+    const t=el.getAttribute("data-"+lang);
+    if(t) el.innerText=t;
+  });
+}
+
+renderLanguage();
+
 function toggleLang(){
-  if(switching)return;
+  if(switching) return;
   switching=true;
 
   lang=(lang==="ru")?"en":"ru";
@@ -336,9 +306,7 @@ function toggleLang(){
   });
 
   setTimeout(()=>{
-    document.querySelectorAll("[data-ru]").forEach(el=>{
-      el.innerText=el.getAttribute("data-"+lang);
-    });
+    renderLanguage();
 
     requestAnimationFrame(()=>{
       document.querySelectorAll("[data-ru]").forEach(el=>{
@@ -347,46 +315,23 @@ function toggleLang(){
       switching=false;
     });
 
-  },250);
+  },180);
 }
 
-/* ACCORDION */
+/* ================= ACCORDION FIX ================= */
+
 const data={
   graphic:{
-    ru:{
-      b:"Бакалавриат: брендинг, типографика, визуальные системы.",
-      m:"Магистратура: арт-дирекшн и дизайн-стратегия.",
-      t:"Срок: 4 года + 2 года"
-    },
-    en:{
-      b:"Bachelor: branding, typography, visual systems.",
-      m:"Master: art direction and design strategy.",
-      t:"Duration: 4 years + 2 years"
-    }
+    ru:{b:"Бакалавриат: брендинг и визуальные системы.",m:"Магистратура: арт-дирекшн.",t:"4+2 года"},
+    en:{b:"Bachelor: branding and visual systems.",m:"Master: art direction.",t:"4+2 years"}
   },
   ux:{
-    ru:{
-      b:"Бакалавриат: интерфейсы и UX исследования.",
-      m:"Магистратура: продуктовый дизайн и системы.",
-      t:"Срок: 4 года + 2 года"
-    },
-    en:{
-      b:"Bachelor: interfaces and UX research.",
-      m:"Master: product systems and design.",
-      t:"Duration: 4 years + 2 years"
-    }
+    ru:{b:"UX/UI дизайн и продуктовые интерфейсы.",m:"Системный дизайн.",t:"4+2 года"},
+    en:{b:"UX/UI and product interfaces.",m:"System design.",t:"4+2 years"}
   },
   industrial:{
-    ru:{
-      b:"Бакалавриат: предметный дизайн и формы.",
-      m:"Магистратура: индустриальные системы.",
-      t:"Срок: 4 года + 2 года"
-    },
-    en:{
-      b:"Bachelor: product form and design.",
-      m:"Master: industrial systems design.",
-      t:"Duration: 4 years + 2 years"
-    }
+    ru:{b:"Промышленный дизайн объектов.",m:"Индустриальные системы.",t:"4+2 года"},
+    en:{b:"Industrial product design.",m:"Industrial systems.",t:"4+2 years"}
   }
 };
 
@@ -394,7 +339,10 @@ function toggleCard(el,type){
 
   const isOpen=el.classList.contains("open");
 
-  document.querySelectorAll(".card").forEach(c=>c.classList.remove("open"));
+  document.querySelectorAll(".card").forEach(c=>{
+    c.classList.remove("open");
+    c.querySelector(".card-content").style.height="0px";
+  });
 
   if(isOpen) return;
 
@@ -408,6 +356,8 @@ function toggleCard(el,type){
   `;
 
   el.classList.add("open");
+
+  content.style.height = content.scrollHeight + "px";
 }
 
 </script>
