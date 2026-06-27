@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-
 *{
   margin:0;
   padding:0;
@@ -18,12 +17,11 @@
 
 body{
   background:#050505;
-  color:white;
-  overflow-y:auto;
+  color:#fff;
   overflow-x:hidden;
 }
 
-/* ================= INTRO ================= */
+/* INTRO */
 
 .intro{
   position:fixed;
@@ -33,7 +31,7 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  background:radial-gradient(circle at center, #0a0a0a 0%, #000 80%);
+  background:radial-gradient(circle at center,#0a0a0a 0%,#000 80%);
   z-index:1000;
   animation:introExit 3.8s cubic-bezier(.77,0,.175,1) forwards;
   pointer-events:none;
@@ -48,11 +46,6 @@ body{
   animation:float 6s ease-in-out infinite;
 }
 
-@keyframes float{
-  0%,100%{transform:translate(-25px,-20px)}
-  50%{transform:translate(35px,25px)}
-}
-
 .logo{
   font-size:92px;
   letter-spacing:26px;
@@ -62,6 +55,11 @@ body{
 
 .logo span{
   color:rgba(255,255,255,.35);
+}
+
+@keyframes float{
+  0%,100%{transform:translate(-25px,-20px)}
+  50%{transform:translate(35px,25px)}
 }
 
 @keyframes logoIn{
@@ -86,15 +84,27 @@ body{
   100%{
     opacity:0;
     visibility:hidden;
-    pointer-events:none;
   }
 }
 
-/* ================= MAIN ================= */
+/* MAIN */
 
 .main{
   padding:60px;
   opacity:1;
+  transform:translateY(0);
+  filter:blur(0);
+  transition:
+    opacity .6s ease,
+    transform .6s ease,
+    filter .6s ease;
+}
+
+.main.switching{
+  opacity:0;
+  transform:translateY(20px);
+  filter:blur(8px);
+  pointer-events:none;
 }
 
 nav{
@@ -115,7 +125,13 @@ nav{
 }
 
 [data-ru]{
-  transition:opacity .25s ease;
+  transition:opacity .4s ease;
+}
+
+/* HERO */
+
+.hero{
+  margin-top:50px;
 }
 
 .hero h1{
@@ -132,6 +148,8 @@ nav{
   line-height:1.6;
 }
 
+/* GRID */
+
 .grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -147,7 +165,6 @@ nav{
   cursor:pointer;
   transition:.25s ease;
   overflow:hidden;
-  position:relative;
 }
 
 .card:hover{
@@ -160,7 +177,6 @@ nav{
   overflow:hidden;
   transform:translateY(-6px);
   transition:all .35s ease;
-  margin-top:0;
   color:rgba(255,255,255,.65);
   line-height:1.6;
 }
@@ -170,6 +186,8 @@ nav{
   margin-top:14px;
   transform:translateY(0);
 }
+
+/* SECTION */
 
 .section{
   margin-top:80px;
@@ -199,6 +217,8 @@ nav{
   color:rgba(255,255,255,.6);
 }
 
+/* CURSOR */
+
 .cursor{
   position:fixed;
   width:260px;
@@ -210,143 +230,41 @@ nav{
   z-index:2;
 }
 
-/* ================= TABLET ================= */
+/* TABLET */
 
 @media (max-width:1024px){
-
-  .main{
-    padding:40px 30px;
-  }
-
-  .hero h1{
-    font-size:52px;
-  }
-
-  .hero p{
-    font-size:16px;
-  }
-
-  .grid{
-    grid-template-columns:1fr;
-  }
-
-  .logo{
-    font-size:72px;
-    letter-spacing:18px;
-  }
-
-  .light{
-    width:500px;
-    height:500px;
-  }
-
-  .cursor{
-    display:none;
-  }
+  .main{padding:40px 30px;}
+  .hero h1{font-size:52px;}
+  .grid{grid-template-columns:1fr;}
+  .logo{font-size:72px;letter-spacing:18px;}
+  .light{width:500px;height:500px;}
+  .cursor{display:none;}
 }
 
-/* ================= MOBILE ================= */
+/* MOBILE */
 
 @media (max-width:768px){
-
-  .main{
-    padding:24px 18px 40px;
-  }
-
-  .brand{
-    font-size:14px;
-    letter-spacing:4px;
-  }
-
-  .lang{
-    font-size:13px;
-  }
-
-  .hero{
-    margin-top:30px;
-  }
-
-  .hero h1{
-    font-size:34px;
-    line-height:1.15;
-    letter-spacing:-1px;
-  }
-
-  .hero p{
-    font-size:14px;
-    margin-top:16px;
-  }
-
-  .grid{
-    grid-template-columns:1fr;
-    gap:14px;
-    margin-top:40px;
-  }
-
-  .card{
-    padding:18px;
-    font-size:15px;
-  }
-
-  .section{
-    margin-top:50px;
-  }
-
-  .section h2{
-    font-size:22px;
-  }
-
-  .text{
-    font-size:14px;
-  }
-
-  .news-item{
-    font-size:14px;
-    padding:14px;
-  }
-
+  .main{padding:24px 18px 40px;}
+  .hero h1{font-size:34px;line-height:1.15;}
+  .hero p{font-size:14px;}
+  .grid{grid-template-columns:1fr;}
   .logo{
     font-size:42px;
     letter-spacing:8px;
     text-align:center;
-    width:100%;
     padding:0 16px;
   }
-
   .light{
     width:280px;
     height:280px;
     filter:blur(50px);
   }
-
-  .cursor{
-    display:none;
-  }
 }
-
-/* ================= SMALL MOBILE ================= */
 
 @media (max-width:420px){
-
-  .logo{
-    font-size:34px;
-    letter-spacing:5px;
-  }
-
-  .light{
-    width:220px;
-    height:220px;
-  }
-
-  .hero h1{
-    font-size:28px;
-  }
-
-  .hero p{
-    font-size:13px;
-  }
+  .logo{font-size:34px;letter-spacing:5px;}
+  .hero h1{font-size:28px;}
 }
-
 </style>
 </head>
 
@@ -374,47 +292,49 @@ nav{
 
 <div class="grid">
 
-  <div class="card" onclick="toggleCard(this,'graphic')">
-    <span data-ru="Графический дизайн" data-en="Graphic Design"></span>
-    <div class="card-content"></div>
-  </div>
+<div class="card" onclick="toggleCard(this,'graphic')">
+  <span data-ru="Графический дизайн" data-en="Graphic Design"></span>
+  <div class="card-content"></div>
+</div>
 
-  <div class="card" onclick="toggleCard(this,'ux')">
-    <span data-ru="UX/UI дизайн" data-en="UX/UI Design"></span>
-    <div class="card-content"></div>
-  </div>
+<div class="card" onclick="toggleCard(this,'ux')">
+  <span data-ru="UX/UI дизайн" data-en="UX/UI Design"></span>
+  <div class="card-content"></div>
+</div>
 
-  <div class="card" onclick="toggleCard(this,'industrial')">
-    <span data-ru="Промышленный дизайн" data-en="Industrial Design"></span>
-    <div class="card-content"></div>
-  </div>
+<div class="card" onclick="toggleCard(this,'industrial')">
+  <span data-ru="Промышленный дизайн" data-en="Industrial Design"></span>
+  <div class="card-content"></div>
+</div>
 
+</div>
+<div class="section">
+  <h2 data-ru="Поддержка" data-en="Support"></h2>
+
+  <p class="text"
+     data-ru="Телефон: +7 (495) 120-88-40"
+     data-en="Phone: +7 (495) 120-88-40"></p>
+
+  <p class="text"
+     data-ru="Email: support@ud-university.ru"
+     data-en="Email: support@ud-university.ru"></p>
+
+  <p class="text"
+     data-ru="Москва, м. Проспект Мира, Протопоповский переулок, 9с1"
+     data-en="Moscow, Prospekt Mira metro station, Protopopovsky Lane 9s1"></p>
 </div>
 
 <div class="section">
+  <h2 data-ru="Новости" data-en="News"></h2>
 
-<h2 data-ru="Поддержка" data-en="Support"></h2>
-
-<p class="text" data-ru="Телефон: +7 (495) 120-88-40" data-en="Phone: +7 (495) 120-88-40"></p>
-<p class="text" data-ru="Email: support@ud-university.ru" data-en="Email: support@ud-university.ru"></p>
-<p class="text" data-ru="Москва, м. Проспект Мира, Протопоповский переулок, 9с1"
-data-en="Moscow, Prospekt Mira metro station, Protopopovsky Lane 9s1"></p>
-
-</div>
-
-<div class="section">
-
-<h2 data-ru="Новости" data-en="News"></h2>
-
-<div class="news">
-<div class="news-item" data-ru="AI меняет дизайн-индустрию." data-en="AI is changing the design industry."></div>
-<div class="news-item" data-ru="UX становится ключевой профессией." data-en="UX is becoming a key profession."></div>
-<div class="news-item" data-ru="Университеты внедряют AI обучение." data-en="Universities adopt AI education."></div>
-<div class="news-item" data-ru="Figma расширяет инструменты." data-en="Figma expands design tools."></div>
-<div class="news-item" data-ru="Бизнес переходит на дизайн-мышление." data-en="Business adopts design thinking."></div>
-<div class="news-item" data-ru="Креативная индустрия растёт." data-en="Creative industry is growing."></div>
-</div>
-
+  <div class="news">
+    <div class="news-item" data-ru="AI меняет дизайн-индустрию." data-en="AI is changing the design industry."></div>
+    <div class="news-item" data-ru="UX становится ключевой профессией." data-en="UX is becoming a key profession."></div>
+    <div class="news-item" data-ru="Университеты внедряют AI обучение." data-en="Universities adopt AI education."></div>
+    <div class="news-item" data-ru="Figma расширяет инструменты." data-en="Figma expands design tools."></div>
+    <div class="news-item" data-ru="Бизнес переходит на дизайн-мышление." data-en="Business adopts design thinking."></div>
+    <div class="news-item" data-ru="Креативная индустрия растёт." data-en="Creative industry is growing."></div>
+  </div>
 </div>
 
 </div>
@@ -422,21 +342,22 @@ data-en="Moscow, Prospekt Mira metro station, Protopopovsky Lane 9s1"></p>
 <div class="cursor"></div>
 
 <script>
-
-const cursor=document.querySelector(".cursor");
+const cursor = document.querySelector(".cursor");
 
 document.addEventListener("mousemove",(e)=>{
-  cursor.style.left=e.clientX+"px";
-  cursor.style.top=e.clientY+"px";
+  if(cursor){
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
+  }
 });
 
-let lang="ru";
-let switching=false;
+let lang = "ru";
+let switching = false;
 
 function renderLanguage(){
   document.querySelectorAll("[data-ru]").forEach(el=>{
-    const t=el.getAttribute("data-"+lang);
-    if(t) el.innerText=t;
+    const t = el.getAttribute("data-" + lang);
+    if(t) el.innerText = t;
   });
 }
 
@@ -444,66 +365,96 @@ renderLanguage();
 
 function toggleLang(){
   if(switching) return;
-  switching=true;
+  switching = true;
 
-  lang=(lang==="ru")?"en":"ru";
-
-  document.querySelectorAll("[data-ru]").forEach(el=>{
-    el.style.opacity=0;
-  });
+  const main = document.querySelector(".main");
+  main.classList.add("switching");
 
   setTimeout(()=>{
+
+    lang = (lang === "ru") ? "en" : "ru";
     renderLanguage();
 
-    requestAnimationFrame(()=>{
-      document.querySelectorAll("[data-ru]").forEach(el=>{
-        el.style.opacity=1;
-      });
-      switching=false;
+    document.querySelectorAll(".card.open").forEach(card=>{
+      card.classList.remove("open");
+      card.querySelector(".card-content").style.height = "0px";
     });
 
-  },180);
+    requestAnimationFrame(()=>{
+      main.classList.remove("switching");
+
+      setTimeout(()=>{
+        switching = false;
+      },600);
+    });
+
+  },600);
 }
 
-const data={
+const data = {
   graphic:{
-    ru:{b:"Бакалавриат: брендинг и визуальные системы.",m:"Магистратура: арт-дирекшн.",t:"4+2 года"},
-    en:{b:"Bachelor: branding and visual systems.",m:"Master: art direction.",t:"4+2 years"}
+    ru:{
+      b:"Бакалавриат: брендинг и визуальные системы.",
+      m:"Магистратура: арт-дирекшн.",
+      t:"4+2 года"
+    },
+    en:{
+      b:"Bachelor: branding and visual systems.",
+      m:"Master: art direction.",
+      t:"4+2 years"
+    }
   },
+
   ux:{
-    ru:{b:"UX/UI дизайн и продуктовые интерфейсы.",m:"Системный дизайн.",t:"4+2 года"},
-    en:{b:"UX/UI and product interfaces.",m:"System design.",t:"4+2 years"}
+    ru:{
+      b:"UX/UI дизайн и продуктовые интерфейсы.",
+      m:"Системный дизайн.",
+      t:"4+2 года"
+    },
+    en:{
+      b:"UX/UI and product interfaces.",
+      m:"System design.",
+      t:"4+2 years"
+    }
   },
+
   industrial:{
-    ru:{b:"Промышленный дизайн объектов.",m:"Индустриальные системы.",t:"4+2 года"},
-    en:{b:"Industrial product design.",m:"Industrial systems.",t:"4+2 years"}
+    ru:{
+      b:"Промышленный дизайн объектов.",
+      m:"Индустриальные системы.",
+      t:"4+2 года"
+    },
+    en:{
+      b:"Industrial product design.",
+      m:"Industrial systems.",
+      t:"4+2 years"
+    }
   }
 };
 
 function toggleCard(el,type){
 
-  const isOpen=el.classList.contains("open");
+  const isOpen = el.classList.contains("open");
 
   document.querySelectorAll(".card").forEach(c=>{
     c.classList.remove("open");
-    c.querySelector(".card-content").style.height="0px";
+    c.querySelector(".card-content").style.height = "0px";
   });
 
   if(isOpen) return;
 
-  const d=data[type][lang];
-  const content=el.querySelector(".card-content");
+  const d = data[type][lang];
+  const content = el.querySelector(".card-content");
 
-  content.innerHTML=`
+  content.innerHTML = `
     <div>${d.b}</div>
     <div style="margin-top:6px">${d.m}</div>
     <div style="margin-top:6px;color:rgba(255,255,255,.4)">${d.t}</div>
   `;
 
   el.classList.add("open");
-  content.style.height=content.scrollHeight+"px";
+  content.style.height = content.scrollHeight + "px";
 }
-
 </script>
 
 </body>
