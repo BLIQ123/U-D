@@ -13,7 +13,7 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:Inter;
+  font-family:Inter,sans-serif;
 }
 
 body{
@@ -28,13 +28,15 @@ body{
 .intro{
   position:fixed;
   inset:0;
+  width:100vw;
+  height:100dvh;
   display:flex;
   align-items:center;
   justify-content:center;
   background:radial-gradient(circle at center, #0a0a0a 0%, #000 80%);
   z-index:1000;
   animation:introExit 3.8s cubic-bezier(.77,0,.175,1) forwards;
-  pointer-events:none; /* 🔥 FIX: не блокирует клики */
+  pointer-events:none;
 }
 
 .light{
@@ -58,12 +60,24 @@ body{
   animation:logoIn 3s cubic-bezier(.16,1,.3,1) forwards;
 }
 
-.logo span{color:rgba(255,255,255,.35);}
+.logo span{
+  color:rgba(255,255,255,.35);
+}
 
 @keyframes logoIn{
-  0%{opacity:0;transform:scale(2.2);filter:blur(35px);}
-  45%{opacity:1;filter:blur(0);}
-  100%{opacity:1;transform:scale(1);}
+  0%{
+    opacity:0;
+    transform:scale(2.2);
+    filter:blur(35px);
+  }
+  45%{
+    opacity:1;
+    filter:blur(0);
+  }
+  100%{
+    opacity:1;
+    transform:scale(1);
+  }
 }
 
 @keyframes introExit{
@@ -80,7 +94,7 @@ body{
 
 .main{
   padding:60px;
-  opacity:1; /* 🔥 FIX: сразу доступно */
+  opacity:1;
 }
 
 nav{
@@ -91,15 +105,19 @@ nav{
   border-bottom:1px solid rgba(255,255,255,.08);
 }
 
-.brand{letter-spacing:6px;}
-.lang{cursor:pointer;color:rgba(255,255,255,.6);}
+.brand{
+  letter-spacing:6px;
+}
 
-/* TEXT */
+.lang{
+  cursor:pointer;
+  color:rgba(255,255,255,.6);
+}
+
 [data-ru]{
   transition:opacity .25s ease;
 }
 
-/* HERO */
 .hero h1{
   font-size:72px;
   line-height:1.05;
@@ -114,7 +132,6 @@ nav{
   line-height:1.6;
 }
 
-/* GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -122,7 +139,6 @@ nav{
   margin-top:60px;
 }
 
-/* CARD */
 .card{
   padding:22px;
   border:1px solid rgba(255,255,255,.08);
@@ -132,7 +148,6 @@ nav{
   transition:.25s ease;
   overflow:hidden;
   position:relative;
-  z-index:1; /* 🔥 FIX */
 }
 
 .card:hover{
@@ -150,7 +165,12 @@ nav{
   line-height:1.6;
 }
 
-/* SECTIONS */
+.card.open .card-content{
+  opacity:1;
+  margin-top:14px;
+  transform:translateY(0);
+}
+
 .section{
   margin-top:80px;
 }
@@ -166,7 +186,6 @@ nav{
   max-width:900px;
 }
 
-/* NEWS */
 .news{
   display:grid;
   gap:12px;
@@ -180,7 +199,6 @@ nav{
   color:rgba(255,255,255,.6);
 }
 
-/* CURSOR */
 .cursor{
   position:fixed;
   width:260px;
@@ -192,18 +210,153 @@ nav{
   z-index:2;
 }
 
+/* ================= TABLET ================= */
+
+@media (max-width:1024px){
+
+  .main{
+    padding:40px 30px;
+  }
+
+  .hero h1{
+    font-size:52px;
+  }
+
+  .hero p{
+    font-size:16px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .logo{
+    font-size:72px;
+    letter-spacing:18px;
+  }
+
+  .light{
+    width:500px;
+    height:500px;
+  }
+
+  .cursor{
+    display:none;
+  }
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width:768px){
+
+  .main{
+    padding:24px 18px 40px;
+  }
+
+  .brand{
+    font-size:14px;
+    letter-spacing:4px;
+  }
+
+  .lang{
+    font-size:13px;
+  }
+
+  .hero{
+    margin-top:30px;
+  }
+
+  .hero h1{
+    font-size:34px;
+    line-height:1.15;
+    letter-spacing:-1px;
+  }
+
+  .hero p{
+    font-size:14px;
+    margin-top:16px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+    gap:14px;
+    margin-top:40px;
+  }
+
+  .card{
+    padding:18px;
+    font-size:15px;
+  }
+
+  .section{
+    margin-top:50px;
+  }
+
+  .section h2{
+    font-size:22px;
+  }
+
+  .text{
+    font-size:14px;
+  }
+
+  .news-item{
+    font-size:14px;
+    padding:14px;
+  }
+
+  .logo{
+    font-size:42px;
+    letter-spacing:8px;
+    text-align:center;
+    width:100%;
+    padding:0 16px;
+  }
+
+  .light{
+    width:280px;
+    height:280px;
+    filter:blur(50px);
+  }
+
+  .cursor{
+    display:none;
+  }
+}
+
+/* ================= SMALL MOBILE ================= */
+
+@media (max-width:420px){
+
+  .logo{
+    font-size:34px;
+    letter-spacing:5px;
+  }
+
+  .light{
+    width:220px;
+    height:220px;
+  }
+
+  .hero h1{
+    font-size:28px;
+  }
+
+  .hero p{
+    font-size:13px;
+  }
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- INTRO -->
 <div class="intro">
   <div class="light"></div>
   <div class="logo">U<span>&</span>D</div>
 </div>
 
-<!-- MAIN -->
 <div class="main">
 
 <nav>
@@ -221,18 +374,18 @@ nav{
 
 <div class="grid">
 
-  <div class="card" onclick="toggleCard(this,'graphic')" data-ru="Графический дизайн" data-en="Graphic Design">
-    Графический дизайн
+  <div class="card" onclick="toggleCard(this,'graphic')">
+    <span data-ru="Графический дизайн" data-en="Graphic Design"></span>
     <div class="card-content"></div>
   </div>
 
-  <div class="card" onclick="toggleCard(this,'ux')" data-ru="UX/UI дизайн" data-en="UX/UI Design">
-    UX/UI дизайн
+  <div class="card" onclick="toggleCard(this,'ux')">
+    <span data-ru="UX/UI дизайн" data-en="UX/UI Design"></span>
     <div class="card-content"></div>
   </div>
 
-  <div class="card" onclick="toggleCard(this,'industrial')" data-ru="Промышленный дизайн" data-en="Industrial Design">
-    Промышленный дизайн
+  <div class="card" onclick="toggleCard(this,'industrial')">
+    <span data-ru="Промышленный дизайн" data-en="Industrial Design"></span>
     <div class="card-content"></div>
   </div>
 
@@ -243,11 +396,9 @@ nav{
 <h2 data-ru="Поддержка" data-en="Support"></h2>
 
 <p class="text" data-ru="Телефон: +7 (495) 120-88-40" data-en="Phone: +7 (495) 120-88-40"></p>
-
 <p class="text" data-ru="Email: support@ud-university.ru" data-en="Email: support@ud-university.ru"></p>
-
 <p class="text" data-ru="Москва, м. Проспект Мира, Протопоповский переулок, 9с1"
-              data-en="Moscow, Prospekt Mira metro station, Protopopovsky Lane 9s1"></p>
+data-en="Moscow, Prospekt Mira metro station, Protopopovsky Lane 9s1"></p>
 
 </div>
 
@@ -256,14 +407,12 @@ nav{
 <h2 data-ru="Новости" data-en="News"></h2>
 
 <div class="news">
-
 <div class="news-item" data-ru="AI меняет дизайн-индустрию." data-en="AI is changing the design industry."></div>
 <div class="news-item" data-ru="UX становится ключевой профессией." data-en="UX is becoming a key profession."></div>
 <div class="news-item" data-ru="Университеты внедряют AI обучение." data-en="Universities adopt AI education."></div>
 <div class="news-item" data-ru="Figma расширяет инструменты." data-en="Figma expands design tools."></div>
 <div class="news-item" data-ru="Бизнес переходит на дизайн-мышление." data-en="Business adopts design thinking."></div>
 <div class="news-item" data-ru="Креативная индустрия растёт." data-en="Creative industry is growing."></div>
-
 </div>
 
 </div>
@@ -280,8 +429,6 @@ document.addEventListener("mousemove",(e)=>{
   cursor.style.left=e.clientX+"px";
   cursor.style.top=e.clientY+"px";
 });
-
-/* ================= LANGUAGE ================= */
 
 let lang="ru";
 let switching=false;
@@ -317,8 +464,6 @@ function toggleLang(){
 
   },180);
 }
-
-/* ================= ACCORDION FIX ================= */
 
 const data={
   graphic:{
@@ -356,8 +501,7 @@ function toggleCard(el,type){
   `;
 
   el.classList.add("open");
-
-  content.style.height = content.scrollHeight + "px";
+  content.style.height=content.scrollHeight+"px";
 }
 
 </script>
